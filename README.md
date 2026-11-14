@@ -4,6 +4,9 @@
 
 **当前版本不接入真实传感器，所有数据由本机模拟器自动或手动生成，不建立任何远程连接。**
 
+- GitHub 仓库：<https://github.com/Laia-0721/transformer-offline-console>
+- 安装包 Release：<https://github.com/Laia-0721/transformer-offline-console/releases/tag/v2.0.0>
+
 ![运维总览](screenshots/overview.png)
 
 ## 安装与运行
@@ -15,6 +18,8 @@
 ```text
 dist\Transformer-Offline-Console-Setup-2.0.0.exe
 ```
+
+> GitHub 源码仓库不包含 `dist` 构建产物；安装包与便携版已上传至 [Releases v2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/tag/v2.0.0)。
 
 双击安装包即可。安装器为交互式向导，单用户安装，不需要管理员权限。
 
