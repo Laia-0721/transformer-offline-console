@@ -1,29 +1,36 @@
 # 变压器离线运维控制台
 
+[![Release](https://img.shields.io/github/v/release/Laia-0721/transformer-offline-console?label=release&color=2ea44f)](https://github.com/Laia-0721/transformer-offline-console/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64-0078D4)](#安装与运行)
+[![Runtime](https://img.shields.io/badge/runtime-fully%20offline-6b7280)](#完全离线保障)
+
 一个面向本地变压器设备的**完全离线桌面运维控制台**，采用类似云服务器实例管理页面的多级控制台结构：资源总览、实例列表、实例详情、监控、健康分析、告警、阈值策略和离线设置。
 
 **当前版本不接入真实传感器，所有数据由本机模拟器自动或手动生成，不建立任何远程连接。**
 
+> 本仓库为公开仓库，源码、文档和构建说明均可查看；可执行安装包通过 GitHub Releases 分发。
+
 - GitHub 仓库：<https://github.com/Laia-0721/transformer-offline-console>
-- 安装包 Release：<https://github.com/Laia-0721/transformer-offline-console/releases/tag/v2.0.0>
+- 最新 Release：<https://github.com/Laia-0721/transformer-offline-console/releases/latest>
+- 问题反馈：<https://github.com/Laia-0721/transformer-offline-console/issues>
 
 ![运维总览](screenshots/overview.png)
 
 ## 安装与运行
 
-### 直接安装（推荐）
+### 下载安装（推荐）
 
-安装包位于：
+从 [Releases v2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/tag/v2.0.0) 下载：
 
-```text
-dist\Transformer-Offline-Console-Setup-2.0.0.exe
-```
+- [Windows 安装版 Setup 2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/download/v2.0.0/Transformer-Offline-Console-Setup-2.0.0.exe)
+- [Windows 便携版 Portable 2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/download/v2.0.0/Transformer-Offline-Console-Portable-2.0.0.exe)
+- [SHA-256 校验文件](https://github.com/Laia-0721/transformer-offline-console/releases/download/v2.0.0/SHA256SUMS.txt)
 
-> GitHub 源码仓库不包含 `dist` 构建产物；安装包与便携版已上传至 [Releases v2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/tag/v2.0.0)。
+> 源码仓库不包含 `dist` 构建产物；自行构建时，安装包输出到 `dist\Transformer-Offline-Console-Setup-2.0.0.exe`。
 
 双击安装包即可。安装器为交互式向导，单用户安装，不需要管理员权限。
 
-安装向导首屏就是新增的 **「本机检测与安装位置」** 页面：
+安装向导首屏是 **「本机检测与安装位置」** 页面：
 
 - 自动读取本机已安装版本、安装路径，并在页面中直接显示；
 - 检测到旧版本时明确提示“继续安装将覆盖程序文件，但保留本机配置与模拟数据”；
@@ -38,28 +45,26 @@ dist\Transformer-Offline-Console-Setup-2.0.0.exe
 - 卸载：Windows 设置 → 应用 → 已安装的应用 → 变压器离线运维控制台
 - 应用数据目录：`%APPDATA%\TransformerOfflineConsole`
 
-已在本机完成检测页、路径变更提示、静默安装与启动验证：安装目录为 `%LOCALAPPDATA%\Programs\transformer-offline-console`，桌面和开始菜单快捷方式均正常，启动后可完全断网运行。
+已完成检测页、路径变更提示、静默安装与启动验证：安装目录为 `%LOCALAPPDATA%\Programs\transformer-offline-console`，桌面和开始菜单快捷方式均正常，启动后可完全断网运行。
 
 > 安装包未做商业代码签名。部分电脑首次运行可能出现 Windows SmartScreen 提示，此时选择“更多信息 → 仍要运行”即可。该提示不代表应用需要联网。
 
 ### 免安装便携版
 
-```text
-dist\Transformer-Offline-Console-Portable-2.0.0.exe
-```
-
-便携版无需安装，双击后在本机解压并启动；适合无法安装软件的受控环境。
+下载 [Portable 2.0.0](https://github.com/Laia-0721/transformer-offline-console/releases/download/v2.0.0/Transformer-Offline-Console-Portable-2.0.0.exe) 后双击，在本机临时解压并启动；无需安装，不写入卸载项。
 
 ### 从源码运行
 
 环境要求：Node.js 18+，Windows 10/11 x64。
 
 ```bash
+git clone https://github.com/Laia-0721/transformer-offline-console.git
+cd transformer-offline-console
 npm install
 npm start
 ```
 
-如果是从当前已构建目录直接运行，依赖已包含在 `node_modules` 中，可以直接执行 `npm start`，或双击 `run-source.bat`。
+如果使用已准备好的本地源码目录，也可以直接执行 `npm start`，或双击 `run-source.bat`。
 
 ## 多级控制台结构
 
@@ -285,7 +290,7 @@ transformer-offline-console/
 ├─ build/
 │  ├─ icon.ico                 安装器与应用图标
 │  └─ installer.nsh            本机检测、安装地址与写权限校验页面
-├─ dist/                       安装包与便携版
+├─ dist/                       本地构建输出（未提交，安装包见 Releases）
 ├─ build-installer.bat         纯 ASCII CRLF 构建脚本
 ├─ run-source.bat              纯 ASCII CRLF 源码启动脚本
 ├─ package.json
@@ -306,3 +311,9 @@ transformer-offline-console/
 - 增加实例列表、详情页签、告警中心、健康评估、历史趋势、巡检任务和离线设置；
 - 增加自动模拟与手动滑杆调节；
 - 增加 Electron 桌面壳、离线网络隔离和 Windows 安装包。
+
+## 反馈与交流
+
+- 问题反馈：<https://github.com/Laia-0721/transformer-offline-console/issues>
+- 安装包下载：<https://github.com/Laia-0721/transformer-offline-console/releases>
+- 提交问题时建议附上 Windows 版本、应用版本和复现步骤。

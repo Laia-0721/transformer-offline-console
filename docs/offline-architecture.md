@@ -146,3 +146,7 @@ dist/
 - 安装包未签名，因此 SmartScreen 可能提示；
 - 没有自动更新机制，这是完全离线设计的一部分；
 - 桌面窗口最小宽度为 1180 px，低于该宽度的窗口会被系统限制。
+
+---
+
+返回 [项目主页](../README.md) · [GitHub 仓库](https://github.com/Laia-0721/transformer-offline-console) · [Releases](https://github.com/Laia-0721/transformer-offline-console/releases)

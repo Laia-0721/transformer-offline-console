@@ -135,3 +135,7 @@ health >= normalLower                    -> 正常
 4. 重建告警与巡检任务。
 
 该操作不会影响安装目录或应用文件。
+
+---
+
+返回 [项目主页](../README.md) · [GitHub 仓库](https://github.com/Laia-0721/transformer-offline-console) · [Releases](https://github.com/Laia-0721/transformer-offline-console/releases)
