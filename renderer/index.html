@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none';">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>变压器离线运维控制台</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><rect x="10" y="10" width="4" height="4" rx=".8"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6V7H9zM9 12l2 2 4-4M9 18h6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21l8.8-8a5.2 5.2 0 0 0 0-7.4Z"/><path d="M3.5 12h4l1.7-3 3.1 6 2-3h6.2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="m7 15 4-5 3 3 5-7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.9 8 7 10 4.1-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.7-4M4 4v5h5M4 13a8 8 0 0 0 14.7 4M20 20v-5h-5"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h3M11 12h9M4 18h10M18 18h2"/><circle cx="16" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="16" cy="18" r="2"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.8 2.4 18a2 2 0 0 0 1.8 3h15.6a2 2 0 0 0 1.8-3L13.7 3.8a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-thermometer" viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4.5 4.5 0 1 0 4 0Z"/><path d="M12 9v7"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M20 15a8 8 0 1 0-16 0"/><path d="m12 13 4-3M4 19h16"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.4-6 4.2 12L16 12h5"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 9l-3 3 3 3"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.6 2.6 0 1 1 4.4 2c-1 .8-2 1.4-2 2.7M12 17h.01"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 .5 7M4 4v5h5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="m2 2 20 20M8.5 8.5A10 10 0 0 1 22 9M5 12.5a10 10 0 0 1 3-1.6M2 9a15 15 0 0 1 4-2M8.5 16a5 5 0 0 1 4-1M12 20h.01"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.8l-9 9a2.1 2.1 0 0 1-3-3l9-9a4.5 4.5 0 0 0-2.8-2.8Z"/><path d="m3 3 4 4"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <a class="brand" href="#/overview" aria-label="返回运维总览">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36"><path d="M20.8 3.5 8.7 20.3h8.1l-1.6 12.2 12.1-16.8h-8.1l1.6-12.2Z"/></svg>
+      </span>
+      <span class="brand-copy">
+        <strong>伏安云</strong>
+        <small>OFFLINE OPS</small>
+      </span>
+    </a>
+    <button class="icon-button topbar__sidebar-toggle" id="sidebarToggle" type="button" title="收起/展开菜单" aria-label="收起或展开侧边菜单">
+      <svg class="icon"><use href="#i-panel"/></svg>
+    </button>
+    <div class="topbar__body">
+      <div class="product-label">
+        变压器运维控制台
+        <span class="tag tag--blue">离线版</span>
+      </div>
+      <button class="global-search" id="searchTrigger" type="button" aria-label="全局搜索">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <span>搜索实例、页面或告警</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+      <div class="topbar__actions">
+        <span class="offline-chip" title="当前版本不建立任何远程连接">
+          <span class="offline-chip__dot"></span>
+          本地离线
+        </span>
+        <button class="icon-button has-badge" id="bellButton" type="button" aria-label="打开通知中心" aria-expanded="false">
+          <svg class="icon"><use href="#i-bell"/></svg>
+          <span class="badge" id="bellBadge">3</span>
+        </button>
+        <button class="icon-button" id="helpButton" type="button" aria-label="查看快捷键帮助">
+          <svg class="icon"><use href="#i-help"/></svg>
+        </button>
+        <div class="user-chip" title="本地管理员账号，无需联网登录">
+          <span class="avatar">管</span>
+          <span class="user-chip__text">
+            <b>运维管理员</b>
+            <small>本地账号</small>
+          </span>
+          <svg class="icon icon--muted"><use href="#i-chevron-down"/></svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__scroll">
+      <nav class="nav" aria-label="主导航">
+        <a class="nav-item" href="#/overview" data-nav="overview">
+          <svg class="icon"><use href="#i-grid"/></svg><span>运维总览</span>
+        </a>
+
+        <div class="nav-group is-open" data-group="resources">
+          <button class="nav-group__head" type="button" aria-expanded="true">
+            <span>资源管理</span><svg class="icon"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="nav-group__items">
+            <a class="nav-item nav-item--child" href="#/instances" data-nav="instances">
+              <svg class="icon"><use href="#i-server"/></svg><span>变压器实例</span><em id="navInstanceCount">5</em>
+            </a>
+            <a class="nav-item nav-item--child" href="#/nodes" data-nav="nodes">
+              <svg class="icon"><use href="#i-cpu"/></svg><span>采集节点</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-group is-open" data-group="monitor">
+          <button class="nav-group__head" type="button" aria-expanded="true">
+            <span>监控运维</span><svg class="icon"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="nav-group__items">
+            <a class="nav-item nav-item--child" href="#/alarms" data-nav="alarms">
+              <svg class="icon"><use href="#i-alert"/></svg><span>告警中心</span><em class="nav-em--danger" id="navAlarmCount">3</em>
+            </a>
+            <a class="nav-item nav-item--child" href="#/inspections" data-nav="inspections">
+              <svg class="icon"><use href="#i-clipboard"/></svg><span>巡检任务</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-group is-open" data-group="analytics">
+          <button class="nav-group__head" type="button" aria-expanded="true">
+            <span>智能分析</span><svg class="icon"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="nav-group__items">
+            <a class="nav-item nav-item--child" href="#/health" data-nav="health">
+              <svg class="icon"><use href="#i-heart"/></svg><span>健康评估</span>
+            </a>
+            <a class="nav-item nav-item--child" href="#/history" data-nav="history">
+              <svg class="icon"><use href="#i-chart"/></svg><span>历史趋势</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-group is-open" data-group="system">
+          <button class="nav-group__head" type="button" aria-expanded="true">
+            <span>系统管理</span><svg class="icon"><use href="#i-chevron-down"/></svg>
+          </button>
+          <div class="nav-group__items">
+            <a class="nav-item nav-item--child" href="#/strategies" data-nav="strategies">
+              <svg class="icon"><use href="#i-shield"/></svg><span>阈值策略</span>
+            </a>
+            <a class="nav-item nav-item--child" href="#/settings" data-nav="settings">
+              <svg class="icon"><use href="#i-settings"/></svg><span>离线设置</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="sidebar__footer">
+      <div class="sim-status" id="simStatus">
+        <span class="sim-status__dot"></span>
+        <div>
+          <strong>本地模拟器运行中</strong>
+          <span id="simStatusDetail">采样间隔 2 秒</span>
+        </div>
+      </div>
+      <button class="sidebar__collapse" id="collapseButton" type="button">
+        <svg class="icon"><use href="#i-panel"/></svg>
+        <span>收起菜单</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="page" id="page"></div>
+    <footer class="page-footer">
+      <span>伏安云 · 变压器离线运维控制台 <b>v2.0.0</b></span>
+      <span class="page-footer__dot"></span>
+      <span>所有数据均在本机生成与存储 · 无远程连接</span>
+    </footer>
+  </main>
+
+  <div class="popover notification-popover" id="notificationPopover" hidden>
+    <div class="popover__head">
+      <strong>通知中心</strong>
+      <button class="text-button" id="markAllRead" type="button">全部标为已读</button>
+    </div>
+    <div class="popover__list" id="notificationList"></div>
+    <div class="popover__foot">
+      <a href="#/alarms" class="text-link">查看全部告警 <svg class="icon"><use href="#i-chevron-right"/></svg></a>
+    </div>
+  </div>
+
+  <div class="overlay" id="commandOverlay" hidden>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-labelledby="commandTitle">
+      <div class="command-search">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <input id="commandInput" type="text" autocomplete="off" placeholder="搜索实例、页面、告警..." aria-label="全局搜索">
+        <kbd>ESC</kbd>
+      </div>
+      <div class="command-results" id="commandResults"></div>
+      <div class="command-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+        <span><kbd>Enter</kbd> 打开</span>
+        <span>仅搜索本地数据</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="drawerOverlay" hidden>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <div class="drawer__head">
+        <div>
+          <h2 id="drawerTitle">模拟数据控制</h2>
+          <p id="drawerSubtitle">本地模拟器 · 不连接外部系统</p>
+        </div>
+        <button class="icon-button" id="drawerClose" type="button" aria-label="关闭">
+          <svg class="icon"><use href="#i-x"/></svg>
+        </button>
+      </div>
+      <div class="drawer__body" id="drawerBody"></div>
+    </aside>
+  </div>
+
+  <div class="overlay overlay--center" id="modalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <h2 id="modalTitle">提示</h2>
+        <button class="icon-button" id="modalClose" type="button" aria-label="关闭">
+          <svg class="icon"><use href="#i-x"/></svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot" id="modalFoot"></div>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script src="js/util.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/pages-common.js"></script>
+  <script src="js/pages-main.js"></script>
+  <script src="js/pages-instance.js"></script>
+  <script src="js/pages-analysis.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Build dependencies and generated output
+node_modules/
+dist/
+*.blockmap
+builder-debug.yml
+
+# Temporary files
+*.log
+Thumbs.db
+.DS_Store

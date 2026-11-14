@@ -1,0 +1,78 @@
+{
+  "name": "transformer-offline-console",
+  "version": "2.0.0",
+  "private": true,
+  "description": "变压器离线运维控制台 · 本地模拟数据 · 无需任何网络连接",
+  "author": "Local Operations Team",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build:dir": "electron-builder --win --dir",
+    "build:win": "electron-builder --win nsis portable"
+  },
+  "devDependencies": {
+    "electron": "45.3.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.offline.transformermonitor",
+    "productName": "变压器离线运维控制台",
+    "copyright": "Copyright © 2026 Local Operations Team",
+    "asar": true,
+    "compression": "maximum",
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.ico",
+        "to": "icon.ico"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "executableName": "TransformerOfflineConsole",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "变压器离线运维控制台",
+      "uninstallDisplayName": "变压器离线运维控制台",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "include": "build/installer.nsh",
+      "artifactName": "Transformer-Offline-Console-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Transformer-Offline-Console-Portable-${version}.${ext}"
+    }
+  }
+}
